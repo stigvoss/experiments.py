@@ -1,23 +1,26 @@
 import sys
+import argparse
 
 def main():
-    args = sys.argv[1:]
+    parser = argparse.ArgumentParser("Calculate with numbers")
+    parser.add_argument("operand", type=str)
+    parser.add_argument("x", type=int)
+    parser.add_argument("y", type=int)
 
-    if len(args) != 3:
-        raise ValueError("Too few args!")
+    args = parser.parse_args()
 
-    operand: str = args[0].lower()
-    x: int = int(args[1])
-    y: int = int(args[2])
+    operand: str = args.operand.lower()
+    x = args.x
+    y = args.y
 
     try:
-        result = __evaluate__(operand, x, y)
+        result = _evaluate(operand, x, y)
     except ValueError as error:
         result = f'Error: {error}'
 
     print(result)
 
-def __evaluate__(operand: str, x: int, y: int) -> int:
+def _evaluate(operand: str, x: int, y: int) -> int:
     if operand == "add":
         return add(x, y)
     elif operand == "subtract":
